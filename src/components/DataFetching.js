@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Grid from './Grid';
-const App = () => {
+const App = ({url}) => {
   const [items, setItems] = useState([]);
 
 
-  async function getToken(user,password) {
-    await axios.get('http://localhost:8080/getToken')
+  async function getToken(url, user, password) {
+    await axios.get(url)
       .then(response => {
         console.log('Token: ', response.data.token);
         return response.data.token;
@@ -17,7 +17,7 @@ const App = () => {
     return;
   }
 
- async function getData(token) {
+ async function getData(url, token) {
     
     if (typeof token != 'undefined') {  
       const headers = {
@@ -25,7 +25,7 @@ const App = () => {
         'Content-Type': 'application/json'
       };
       // console.log(headers);
-      await axios.get('http://localhost:8080/api/search/marcas', { headers })
+      await axios.get(url, { headers })
         .then(response => {
           console.log('Marcas: ', response.data.data)  
           setItems(response.data.data);
@@ -43,8 +43,8 @@ const App = () => {
   useEffect(() => {
     try {
       // retrieving JWT;
-      let token = getToken('jphndoe@bexup.com', 'bexup');
-      getData(token);
+      let token = getToken('http://localhost:8080/getToken','jphndoe@bexup.com', 'bexup');
+      getData(url, token);
     } catch (error) {
       console.error('Error fetching items:', error);
     }
