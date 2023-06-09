@@ -1,14 +1,16 @@
-import './App.css';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { AppRoute } from './routes/appRoutes'
+import { store } from './store/store'
 
-import DataFetching from './components/DataFetching';
+export const App = (props) => {
+    return (
+        <Provider store={store} >
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header"></header>
-      <DataFetching url={'http://localhost:8080/api/search/marcas'}/>
-    </div>
-  );
+        <AppRoute />
+        </Provider>
+    )
 }
+
 
 export default App;
