@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useForm } from '../hooks/useForm'
-import { startLogin } from './auth'
+import { startLogin } from '../actions/auth'
 import { useDispatch } from 'react-redux'
 import { fetchSinToken } from '../helpers/fetch'
 

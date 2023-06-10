@@ -5,10 +5,12 @@ import {
     Routes,
     Navigate
 } from "react-router-dom";
-import { startChecking } from '../components/auth';
+import { startChecking } from '../actions/auth';
 
-import { AuthRouter } from './authRoutes';
-import { PrivateRouter } from './privateRoutes';
+import { AuthRouter } from './AuthRoute';
+import { DashboardRouter } from './DasboardRoute';
+import { PublicRoute } from './PublicRoute';
+import { PrivateRouter } from './PrivateRoute';
 
 
 export const AppRoute = () => {
@@ -21,18 +23,22 @@ export const AppRoute = () => {
     }, [dispatch])
 
     if (!isCheking) {
-        return <h4>Carregando...</h4>;
+        return <h4>Cargando...</h4>;
     }
     return (
         <Router>
+
             <div>
                 <Routes>
+                    <PublicRoute isAuthenticated={!!uid} path="/auth"
+                        component={AuthRouter} />
                     <PrivateRouter isAuthenticated={!!uid} path="/"
-                        component={PrivateRouter} />
+                        component={DashboardRouter} />
                     <Navigate to="/auth/login" />
                 </Routes>
+
             </div>
+
         </Router>
     )
 }
-

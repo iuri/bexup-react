@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useForm } from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { startRegister } from './auth'
+import { startRegister } from '../actions/auth'
 
 
 export const RegisterScreen = ({history}) => {
