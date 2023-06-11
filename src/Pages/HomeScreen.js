@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Grid from './Grid';
-const App = ({url}) => {
+import { useDispatch } from 'react-redux';
+
+import Grid from '../components/Grid';
+import { logout } from '../actions/auth';
+
+export const HomeScreen = React.memo(() => {
   const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
 
-
+  const closeSession = () => {
+    localStorage.clear();
+    dispatch(logout());
+  }
+  const url = 'http://localhost:8080/api/search/marcas';
   async function getToken(url, user, password) {
     await axios.get(url)
       .then(response => {
@@ -52,10 +61,18 @@ const App = ({url}) => {
 
   return (
     <div>
-      <h1>Marcas</h1>
-      <Grid data={items} />
+    <div className="site_header">
+      <div className="left_logo">
+        <h1>Marcas</h1>
+      </div>
+      <div className="right_text">
+        <div className="pweroff">
+          <img onClick={closeSession}  src="/assets/icons/closesession.svg" alt="iconPerson" />
+        </div>
+      </div>
+    </div>
+    <Grid data={items} />
     </div>
   );
-};
 
-export default App;
+});

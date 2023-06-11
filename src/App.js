@@ -6,11 +6,7 @@ import { store } from './store/store'
 export const App = (props) => {
     return (
         <Provider store={store} >
-
         <AppRoute />
         </Provider>
     )
 }
-
-
-export default App;
